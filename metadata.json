@@ -1,0 +1,6 @@
+{
+  "name": "Timetable and Routine Builder",
+  "description": "A modern, AI-powered timetable management and routine builder in a sleek, minimal red and black theme.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
