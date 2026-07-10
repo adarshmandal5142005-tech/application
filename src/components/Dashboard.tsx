@@ -103,12 +103,22 @@ export default function Dashboard({
     const completedTasks = tasks.filter(t => t.completed).length;
     const streak = Math.min(7, Math.floor((completedEvents + completedTasks) / 2) + 2); // mockup streak helper
 
+    // Today's Task Progress
+    const todayDateStr = now.toISOString().split("T")[0];
+    const todayTasks = tasks.filter(t => !t.dueDate || t.dueDate <= todayDateStr);
+    const completedTodayTasks = todayTasks.filter(t => t.completed).length;
+    const totalTodayTasks = todayTasks.length;
+    const taskProgressPercentage = totalTodayTasks === 0 ? 0 : Math.round((completedTodayTasks / totalTodayTasks) * 100);
+
     return {
       completedEvents,
       totalEventsCount,
       upcoming,
       freeHours,
-      streak
+      streak,
+      completedTodayTasks,
+      totalTodayTasks,
+      taskProgressPercentage
     };
   }, [events, tasks, selectedDay, initialDay]);
 
@@ -362,6 +372,29 @@ export default function Dashboard({
 
         {/* Right side panel (Upcoming Tasks & Daily Motivation) */}
         <div className="space-y-6">
+          {/* Today's Tasks Progress */}
+          <div className="bg-[#141414] p-6 rounded-3xl border border-white/5 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="font-sans font-bold text-sm text-white flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 text-[#E50914]" /> Today's Task Progress
+              </h3>
+              <span className="text-xs font-mono font-bold text-zinc-400">
+                {stats.completedTodayTasks} / {stats.totalTodayTasks} completed
+              </span>
+            </div>
+            <div className="w-full h-2 bg-white/5 rounded-full overflow-hidden shadow-[inset_0_1px_3px_rgba(0,0,0,0.5)]">
+              <div 
+                className="h-full bg-[#E50914] transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(229,9,20,0.5)] relative" 
+                style={{ width: `${stats.taskProgressPercentage}%` }}
+              >
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/20" />
+              </div>
+            </div>
+            <p className="text-[10px] text-zinc-500 font-medium text-right">
+              {stats.taskProgressPercentage}% of today's tasks completed
+            </p>
+          </div>
+
           {/* Quick Tasks List */}
           <div className="bg-[#141414] p-6 rounded-3xl border border-white/5 space-y-4">
             <div className="flex items-center justify-between">

@@ -17,6 +17,8 @@ import { exportToCSV } from "../utils";
 
 interface SettingsPageProps {
   events: TimetableEvent[];
+  theme: string;
+  onThemeChange: (theme: string) => void;
   notificationEnabled: boolean;
   onSetNotificationEnabled: (enabled: boolean) => void;
   onClearAll: () => void;
@@ -26,20 +28,21 @@ interface SettingsPageProps {
 
 export default function SettingsPage({
   events,
+  theme,
+  onThemeChange,
   notificationEnabled,
   onSetNotificationEnabled,
   onClearAll,
   onResetToDefault,
   onImportEvents
 }: SettingsPageProps) {
-  const [theme, setTheme] = useState("redline");
   const [importError, setImportError] = useState("");
   const [importSuccess, setImportSuccess] = useState(false);
 
   const themeOptions = [
     { id: "redline", name: "Redline Core", desc: "Base high-contrast Red & Black theme.", activeColors: "bg-red-600 border-red-500" },
-    { id: "cyber", name: "Cyber Blood", desc: "Deep neon red glows with pitch dark tones.", activeColors: "bg-[#FF1744] border-red-400" },
-    { id: "charcoal", name: "Stealth Carbon", desc: "Dark graphite textures and matte red highlights.", activeColors: "bg-red-800 border-red-700" },
+    { id: "gray", name: "Monochrome Gray", desc: "Clean and minimalist grayscale aesthetic.", activeColors: "bg-gray-600 border-gray-500" },
+    { id: "light", name: "Daylight Bright", desc: "Crisp light interface with high visibility.", activeColors: "bg-slate-200 border-slate-300" },
   ];
 
   const handleExport = () => {
@@ -144,7 +147,7 @@ export default function SettingsPage({
               {themeOptions.map((opt) => (
                 <div 
                   key={opt.id}
-                  onClick={() => setTheme(opt.id)}
+                  onClick={() => onThemeChange(opt.id)}
                   className={`
                     p-4 rounded-2xl border flex items-center justify-between gap-4 cursor-pointer transition-all duration-200
                     ${theme === opt.id 

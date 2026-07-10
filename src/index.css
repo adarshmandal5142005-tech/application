@@ -49,3 +49,17 @@
   -ms-overflow-style: none;  /* IE and Edge */
   scrollbar-width: none;  /* Firefox */
 }
+
+/* Theme Options */
+html[data-theme='gray'] {
+  filter: grayscale(100%);
+}
+
+html[data-theme='light'] {
+  filter: invert(1) hue-rotate(180deg);
+}
+
+html[data-theme='light'] img,
+html[data-theme='light'] video {
+  filter: invert(1) hue-rotate(180deg);
+}

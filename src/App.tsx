@@ -60,6 +60,10 @@ export default function App() {
     };
   });
 
+  const [theme, setTheme] = useState<string>(() => {
+    return localStorage.getItem("redline_theme") || "redline";
+  });
+
   // Sync state to local storage when changed
   useEffect(() => {
     localStorage.setItem("redline_events", JSON.stringify(events));
@@ -72,6 +76,11 @@ export default function App() {
   useEffect(() => {
     localStorage.setItem("redline_preferences", JSON.stringify(preferences));
   }, [preferences]);
+
+  useEffect(() => {
+    localStorage.setItem("redline_theme", theme);
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
 
   // Timetable Event Handlers
   const handleAddEvent = (newEvent: Omit<TimetableEvent, "id">) => {
@@ -213,6 +222,8 @@ export default function App() {
           {activeTab === "settings" && (
             <SettingsPage 
               events={events}
+              theme={theme}
+              onThemeChange={setTheme}
               notificationEnabled={preferences.notificationEnabled}
               onSetNotificationEnabled={handleSetNotificationEnabled}
               onClearAll={handleClearAll}

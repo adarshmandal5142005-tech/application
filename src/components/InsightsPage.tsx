@@ -37,13 +37,13 @@ interface InsightsPageProps {
 }
 
 const CATEGORY_THEME_COLORS = {
-  sleep: "#27272a",    // Zinc-800
-  study: "#E50914",    // Netflix Red
-  work: "#991b1b",     // Red-800
-  gym: "#ea580c",      // Orange-600
-  personal: "#78716c", // Stone-500
-  leisure: "#a1a1aa",  // Zinc-400
-  chore: "#52525b",    // Zinc-600
+  sleep: "#000000",    // Black
+  study: "#ffffff",    // White
+  work: "#3b82f6",     // Blue
+  gym: "#22c55e",      // Green
+  personal: "#eab308", // Yellow
+  leisure: "#ec4899",  // Pink
+  chore: "#a855f7",    // Purple
 };
 
 export default function InsightsPage({ events, tasks }: InsightsPageProps) {
